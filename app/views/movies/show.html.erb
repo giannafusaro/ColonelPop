@@ -1,18 +1,27 @@
+<div id="background" style="background-image:url('<%= @movie["poster_400x570"] %>')"></div>
+
 <h1>
-  <%= @movie["title"] %>
-  <%= image_tag @movie["poster_120x171"] %>
+  <span class="pull-left"><%= @movie["title"] %></span>
+  <span class="pull-right"><%= image_tag @movie["poster_240x342"] %></span>
 </h1>
-<h3><%= @movie["release_date"] %></h3>
-<h5><%= @movie["directors"].collect{ |x| x["name"] }.join(',') %></h5>
+<h5>
+  <span class="pull-left">Released <%= @movie["release_date"] %></span>
+  <span class="pull-right"><%= @movie["directors"].collect{ |x| x["name"] }.join(', ') %></span>
+</h5>
 <p><%= @movie["overview"] %></p>
 
-<h2>Reviews!</h2>
 <hr>
+
+<h2>Reviews!</h2>
+<br />
+
 <% @reviews.each do |review| %>
-  <%= review.email %>
-  <%= review.created_at %>
-  <%= review.rating %>
-  <%= review.comment %>
+  <article>
+    <h6><%= review.rating %> stars</h6>
+    From <%= review.email %> on <%= review.created_at %>
+    <p><%= review.comment %></p>
+    <br />
+  </article>
 <% end %>
 
 <%= link_to "Add new review!", new_movie_review_path(params[:id]) %>

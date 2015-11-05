@@ -1,13 +1,33 @@
+<div id="background" style="background-image:url('<%= @movie["poster_400x570"] %>')"></div>
 
-<!-- <h1><%= "#{@title} movie review" %></h1> -->
+<h1>Reviewing <%= @movie['title'] %></h1>
+
+<% unless @review.errors.empty? %>
+  <div class="alert alert-danger">
+    <h4>There are <%= @review.errors.count %> error(s) on the page:</h4>
+    <ul>
+      <% @review.errors.messages.each do |key, value| %>
+        <li><%= key %> <%= value.join(' and ') %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
 <%= form_for @review, url: {action: "create"} do |f| %>
-  <%= f.label :email, "email", class: "label" %>
-  <%= f.text_field :email, placeholder: "bob@email.com", class: "form-field" %>
-  <%= f.label :email, "rating", class: "label" %>
-  <%= f.text_field :rating, placeholder: "7", class: "form-field" %>
-  <%= f.label :email, "comment", class: "label" %>
-  <%= f.text_area :comment, placeholder: "movie review", class: "form-field" %>
-
-  <%= hidden_field_tag 'review[movie_id]', params[:movie_id] %>
-  <%= f.submit %>
+  <fieldset class="form-group">
+    <%= f.label :email, "email", class: "label" %>
+    <%= f.text_field :email, placeholder: "example@email.com", class: "form-control" %>
+  </fieldset>
+  <fieldset class="form-group">
+    <%= f.label :email, "rating", class: "label" %>
+    <%= f.number_field :rating, placeholder: "7", class: "form-control" %>
+  </fieldset>
+  <fieldset class="form-group">
+    <%= f.label :email, "comment", class: "label" %>
+    <%= f.text_area :comment, placeholder: "your review", class: "form-control" %>
+  </fieldset>
+  <fieldset class="form-group">
+    <%= hidden_field_tag 'review[movie_id]', params[:movie_id] %>
+    <%= f.submit %>
+  </fieldset>
 <% end %>
