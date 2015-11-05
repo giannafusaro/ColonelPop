@@ -1,8 +1,14 @@
 class MoviesController < ApplicationController
 
+  ENDPOINT = "https://api-public.guidebox.com/v1.43/US/#{Rails.application.secrets[:guidebox_api_key]}"
+  PER_PAGE = 15
+
   def index
-    @movies = Rails.cache.fetch("movies:all") do
-      uri = URI("https://api-public.guidebox.com/v1.43/US/#{Rails.application.secrets[:guidebox_api_key]}/movies/all/50/25/all/all")
+    @page = params[:page].to_i || 1
+    @key = "movies/all/#{(@page*PER_PAGE)-PER_PAGE}/#{@page*PER_PAGE}"
+
+    @movies = Rails.cache.fetch(@key) do
+      uri = URI("#{ENDPOINT}/#{@key}/free/web")
       response = JSON.parse(Net::HTTP.get(uri))
       response["results"]
     end

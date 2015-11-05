@@ -8,7 +8,7 @@ class ReviewsController < ApplicationController
     @title = params[:title]
     if @review.save
       flash[:notice] = "You've successfully created a review."
-      redirect root_path
+      redirect_to root_path
     else
       flash[:notice] = "Something went wrong."
       render :new
@@ -21,6 +21,6 @@ class ReviewsController < ApplicationController
 
   private
     def post_params
-      params.permit(:rating, :email, :comment, :movie_id)
+      params.require(:review).permit(:rating, :email, :comment, :movie_id)
     end
 end

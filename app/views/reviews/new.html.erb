@@ -8,6 +8,6 @@
   <%= f.label :email, "comment", class: "label" %>
   <%= f.text_area :comment, placeholder: "movie review", class: "form-field" %>
 
-  <% f.hidden_field(:movie_id, params[:movie_id]) %>
+  <%= hidden_field_tag 'review[movie_id]', params[:movie_id] %>
   <%= f.submit %>
 <% end %>
