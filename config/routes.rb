@@ -54,5 +54,10 @@ Rails.application.routes.draw do
   #     resources :products
   #   end
   root 'movies#index'
-  resources :reviews
+  resources :movies do
+    resource :review
+  end
+
+  # get '/movie/:title' => 'movies#show', as: :movie
+
 end

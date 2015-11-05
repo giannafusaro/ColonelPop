@@ -1,0 +1,18 @@
+<h1>
+  <%= @movie["title"] %>
+  <%= image_tag @movie["poster_120x171"] %>
+</h1>
+<h3><%= @movie["release_date"] %></h3>
+<h5><%= @movie["directors"].collect{ |x| x["name"] }.join(',') %></h5>
+<p><%= @movie["overview"] %></p>
+
+<h2>Reviews!</h2>
+<hr>
+<% @reviews.each do |review| %>
+  <%= review.email %>
+  <%= review.created_at %>
+  <%= review.rating %>
+  <%= review.comment %>
+<% end %>
+
+<%= link_to "Add new review!", new_movie_review_path(params[:id]) %>

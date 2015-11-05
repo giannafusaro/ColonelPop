@@ -1,0 +1,13 @@
+
+<!-- <h1><%= "#{@title} movie review" %></h1> -->
+<%= form_for @review, url: {action: "create"} do |f| %>
+  <%= f.label :email, "email", class: "label" %>
+  <%= f.text_field :email, placeholder: "bob@email.com", class: "form-field" %>
+  <%= f.label :email, "rating", class: "label" %>
+  <%= f.text_field :rating, placeholder: "7", class: "form-field" %>
+  <%= f.label :email, "comment", class: "label" %>
+  <%= f.text_area :comment, placeholder: "movie review", class: "form-field" %>
+
+  <% f.hidden_field(:movie_id, params[:movie_id]) %>
+  <%= f.submit %>
+<% end %>
