@@ -1,27 +1,38 @@
-<div id="background" style="background-image:url('<%= @movie["poster_400x570"] %>')"></div>
 
 <h1>
   <span class="pull-left"><%= @movie["title"] %></span>
   <span class="pull-right"><%= image_tag @movie["poster_240x342"] %></span>
 </h1>
-<h5>
+<h3>
   <span class="pull-left">Released <%= @movie["release_date"] %></span>
-  <span class="pull-right"><%= @movie["directors"].collect{ |x| x["name"] }.join(', ') %></span>
-</h5>
+  <span class="pull-right">Directed by <%= @movie["directors"].collect{ |x| x["name"] }.join(', ') %></span>
+</h3>
 <p><%= @movie["overview"] %></p>
-
 <hr>
 
-<h2>Reviews!</h2>
+<h2>Reviews</h2>
 <br />
 
-<% @reviews.each do |review| %>
+<% if @reviews.empty? %>
   <article>
-    <h6><%= review.rating %> stars</h6>
-    From <%= review.email %> on <%= review.created_at %>
-    <p><%= review.comment %></p>
-    <br />
+    <h6>No reviews yet :(</h6>
   </article>
+<% else %>
+  <% @reviews.each do |review| %>
+    <article>
+      <h6>
+        <% review.rating.times do %>
+          <i class="fa fa-star"></i>
+        <% end %>
+        <% (10-review.rating).times do %>
+          <i class="fa fa-star-o"></i>
+        <% end %>
+      </h6>
+      From <%= review.email %>, posted <%= time_ago_in_words review.created_at %> ago
+      <p><%= review.comment %></p>
+      <br />
+    </article>
+  <% end %>
 <% end %>
 
-<%= link_to "Add new review!", new_movie_review_path(params[:id]) %>
+<%= link_to "Add new review!", new_movie_review_path(params[:id]), class: 'btn btn-primary' %>

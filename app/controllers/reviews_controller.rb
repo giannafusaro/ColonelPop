@@ -16,10 +16,6 @@ class ReviewsController < ApplicationController
     end
   end
 
-  def show
-
-  end
-
   private
 
     def get_movie
@@ -27,6 +23,7 @@ class ReviewsController < ApplicationController
         uri = URI("#{ENDPOINT}/movie/#{params[:movie_id]}")
         JSON.parse(Net::HTTP.get(uri))
       end
+      @background = @movie["poster_400x570"]
     end
 
     def post_params

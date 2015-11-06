@@ -2,8 +2,7 @@ class MoviesController < ApplicationController
 
   def index
     @page = params[:page].to_i || 1
-    prevs = (@page-1)*PER_PAGE
-    limit = "#{prevs > 0 ? prevs : 0}/#{PER_PAGE}"
+    limit = "#{(@page-1)*PER_PAGE > 0 ? (@page-1)*PER_PAGE : 0}/#{PER_PAGE}"
     @ckey = "movies/all/#{limit}/all/all"
 
     sort = params[:sort] || "none"
@@ -17,6 +16,8 @@ class MoviesController < ApplicationController
       when "rating"       then response["results"].sort_by{ |x| x["rating"] }
       end
     end
+
+    @background = @movies.sample["poster_400x570"]
   end
 
   def show
@@ -25,8 +26,8 @@ class MoviesController < ApplicationController
       JSON.parse(Net::HTTP.get(uri))
     end
 
-    @reviews = Review.where(movie_id: params[:id])
-
+    @background = @movie["poster_400x570"]
+    @reviews = Review.where movie_id: params[:id]
   end
 
 end
