@@ -5,6 +5,7 @@
     <tr>
       <th></th>
       <th><%= link_to 'Title', movies_path(page: @page, sort: 'title') %></th>
+      <th>Reviews</th>
       <th><%= link_to 'Rating', movies_path(page: @page, sort: 'rating') %></th>
       <th><%= link_to 'Year', movies_path(page: @page, sort: 'release_year') %></th>
     </tr>
@@ -14,6 +15,7 @@
       <tr>
         <td><%= image_tag movie['poster_120x171'] %></td>
         <td><%= link_to movie['title'], movie_path(movie['id']) %></td>
+        <td><%= number_of_reviews movie['id'] %></td>
         <td><%= movie['rating'] %></td>
         <td><%= movie['release_year'] %></td>
       </tr>

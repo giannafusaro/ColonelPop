@@ -1,15 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>MovieReviews</title>
+  <title>Colonel Popcorn's Movie Reviews</title>
   <%= stylesheet_link_tag "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha/css/bootstrap.min.css" %>
   <%= stylesheet_link_tag "https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" %>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
-
 </head>
-<body>
+
+<body id="<%= controller.controller_name %>" class="<%= controller.action_name %>">
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <a class="navbar-brand" href="#">Colonel Popcorn's Movie Reviews</a>
+    <ul class="nav nav-pills">
+      <li class="nav-item">
+        <%= link_to 'All Movies', movies_path, class: 'nav-link' %>
+      </li>
+      <li class="nav-item">
+        <%= link_to 'All Reviews', reviews_path, class: 'nav-link' %>
+      </li>
+    </ul>
+  </nav>
+
   <div id="background" style="background-image:url('<%= @background %>')"></div>
 
   <% flash.each do |key, value| %>

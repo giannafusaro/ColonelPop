@@ -1,0 +1,22 @@
+<h1>Review</h1>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Email</th>
+      <th>Title</th>
+      <th style="min-width:180px;">Rating</th>
+      <th>Comment</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @reviews.each do |review| %>
+      <tr>
+        <td><%= review.email %></td>
+        <td><%= get_movie(review)['title'] %></td>
+        <td><%= rating_in_stars review %></td>
+        <td><%= review.comment %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

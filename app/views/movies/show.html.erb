@@ -15,19 +15,12 @@
 
 <% if @reviews.empty? %>
   <article>
-    <h6>No reviews yet :(</h6>
+    <h6>No reviews yet :(</h6><br />
   </article>
 <% else %>
   <% @reviews.each do |review| %>
     <article>
-      <h6>
-        <% review.rating.times do %>
-          <i class="fa fa-star"></i>
-        <% end %>
-        <% (10-review.rating).times do %>
-          <i class="fa fa-star-o"></i>
-        <% end %>
-      </h6>
+      <%= rating_in_stars review %>
       From <%= review.email %>, posted <%= time_ago_in_words review.created_at %> ago
       <p><%= review.comment %></p>
       <br />
