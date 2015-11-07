@@ -6,4 +6,15 @@ class ApplicationController < ActionController::Base
   ENDPOINT = "https://api-public.guidebox.com/v1.43/US/#{Rails.application.secrets[:guidebox_api_key]}"
   PER_PAGE = 15
 
+  def get_movie(review=nil)
+    id = review ? review.movie_id : params[:movie_id]
+    movie = Rails.cache.fetch("movie:#{id}") do
+      uri = URI("#{ENDPOINT}/movie/#{id}")
+      JSON.parse(Net::HTTP.get(uri))
+    end
+    @background = movie["poster_400x570"]
+    @movie = movie
+  end
+  helper_method :get_movie
+
 end

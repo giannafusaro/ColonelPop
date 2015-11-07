@@ -1,5 +1,9 @@
 class ReviewsController < ApplicationController
-  before_filter :get_movie
+  before_filter :get_movie, except: :index
+
+  def index
+    @reviews = Review.all
+  end
 
   def new
     @review = Review.new
@@ -17,14 +21,6 @@ class ReviewsController < ApplicationController
   end
 
   private
-
-    def get_movie
-      @movie = Rails.cache.fetch("movie:#{params[:movie_id]}") do
-        uri = URI("#{ENDPOINT}/movie/#{params[:movie_id]}")
-        JSON.parse(Net::HTTP.get(uri))
-      end
-      @background = @movie["poster_400x570"]
-    end
 
     def post_params
       params.require(:review).permit(:rating, :email, :comment, :movie_id)
