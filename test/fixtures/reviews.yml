@@ -6,13 +6,13 @@
 #
 
 review1:
-  movie_id: 9627
+  movie_id: 1
   email: email@email.com
   rating: 3
-  comment: Unrealistic. Too far fetched!
+  comment: Distinctio recusandae eum occaecati possimus.
 
 review2:
-  movie_id: 9627
+  movie_id: 1
   email: email2@email.com
   rating: 9
-  comment: It's really good!
+  comment: Quaerat architecto est quia qui aperiam.
